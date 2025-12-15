@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.vevoly.id.server.mapper.IdGeneratorMapper">
+
+    <!-- 批量插入或更新：如果 biz_tag 存在则更新 max_id，不存在则插入 -->
+    <insert id="batchUpsert" parameterType="java.util.List">
+        INSERT INTO t_id_generator (biz_tag, max_id, step, update_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.bizTag}, #{item.maxId}, #{item.step}, NOW())
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        max_id = VALUES(max_id),
+        update_time = NOW()
+    </insert>
+
+</mapper>

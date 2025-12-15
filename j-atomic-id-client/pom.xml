@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.vevoly</groupId>
+        <artifactId>j-atomic-id</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>j-atomic-id-client</artifactId>
+    <name>j-atomic-id-client (SDK)</name>
+    <url>https://github.com/vevoly/j-atomic-id</url>
+    <description>Client models for j-atomic-id</description>
+
+    <dependencies>
+        <!-- 1. 引入通信契约 (API 模块) -->
+        <dependency>
+            <groupId>io.github.vevoly</groupId>
+            <artifactId>j-atomic-id-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 2. Spring Boot 基础支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 3. HTTP 客户端支持 -->
+        <!-- 我们需要 RestTemplate 或 WebClient 来发送请求给 Server -->
+        <!-- 引入 web 模块也会引入 jackson，用于 JSON 序列化 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+            <!-- 标记为 provided 或 optional，避免强制传递给用户不需要的 web 依赖 -->
+        </dependency>
+
+        <!-- 4. 自动装配支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 5. 工具类 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 这里为了轻量化，我们暂时不引 spring-retry，手写重试 -->
+    </dependencies>
+</project>

@@ -1,0 +1,39 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/j_atomic_id?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+
+logging:
+  level:
+    root: INFO
+    # 屏蔽 Chronicle 的 INFO 级别噪音（比如磁盘检查、映射文件扩容日志）
+    net.openhft: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点，包括 metrics
+  metrics:
+    tags:
+      application: j-atomic-id # 全局 Tag
+
+# j-atomic-ledger 配置
+j-atomic-ledger:
+  base-dir: ./data/j-atomic-id-server
+  engine-name: id-core
+  partitions: 4
+  queue-size: 65536
+  batch-size: 1000
+  snapshot-interval: 50000
+  enable-time-snapshot: true
+  snapshot-time-interval: 10m
+  idempotency: BLOOM

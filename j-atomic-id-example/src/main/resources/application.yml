@@ -1,0 +1,33 @@
+server:
+  port: 8091
+
+j-atomic-id:
+  client:
+    server-url: http://localhost:8090
+    rules:
+      # 订单业务：使用号段模式，本地缓冲 2000 个，剩余 50% 时预加载
+      - biz-tag: "order"
+        mode: SEGMENT
+        step: 1000
+        min-buffer-ratio: 0.3
+
+      # IM 业务：使用严格模式，不缓冲
+      - biz-tag: "chat_group_1001"
+        mode: STRICT
+
+      # 压测-号段模式 (模拟订单)
+      # 步长设大一点 (5000)，感受纯内存的暴力速度
+      - biz-tag: "bench_segment"
+        mode: SEGMENT
+        step: 5000
+        min-buffer-ratio: 0.2
+
+      # 压测-严格模式 (模拟IM)
+      # 每次都走网络，测试端到端延迟
+      - biz-tag: "bench_strict"
+        mode: STRICT
+
+      - biz-tag: "bench-order"
+        mode: SEGMENT
+        step: 2000
+        min-buffer-ratio: 0.3
