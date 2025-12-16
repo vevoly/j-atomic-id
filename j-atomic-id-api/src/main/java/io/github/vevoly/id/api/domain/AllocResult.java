@@ -40,9 +40,14 @@ public class AllocResult implements Serializable {
     private boolean success;
 
     /**
-     * 消息/错误码 (Message/Error Code).
+     * 消息 (Message).
      */
     private String message;
+
+    /**
+     * 错误码 (Error Code).
+     */
+    private int code;
 
     /**
      * 起始 ID (含) (Start ID - Inclusive).
@@ -58,13 +63,13 @@ public class AllocResult implements Serializable {
      * 快速构建成功结果.
      */
     public static AllocResult success(long minId, long maxId) {
-        return new AllocResult(true, "OK", minId, maxId);
+        return new AllocResult(true, "OK", 200, minId, maxId);
     }
 
     /**
      * 快速构建失败结果.
      */
-    public static AllocResult fail(String message) {
-        return new AllocResult(false, message, 0, 0);
+    public static AllocResult fail(int code, String message) {
+        return new AllocResult(false, message, code, -1, -1);
     }
 }

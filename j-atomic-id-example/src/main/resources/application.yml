@@ -3,6 +3,8 @@ server:
 
 j-atomic-id:
   client:
+    app-key: order-service
+    app-secret: a_very_long_secret_for_order_service
     server-url: http://localhost:8090
     rules:
       # 订单业务：使用号段模式，本地缓冲 2000 个，剩余 50% 时预加载

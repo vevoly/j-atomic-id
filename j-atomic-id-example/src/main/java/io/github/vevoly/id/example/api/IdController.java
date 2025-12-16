@@ -1,5 +1,7 @@
 package io.github.vevoly.id.example.api;
 
+import io.github.vevoly.id.api.exceptions.IdErrorCode;
+import io.github.vevoly.id.api.exceptions.IdException;
 import io.github.vevoly.id.client.core.generator.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,8 @@ public class IdController {
         long start = System.nanoTime();
 
         // 1. 获取订单 ID (号段模式 - 极速)
-        long orderId = idGenerator.nextId("order_global");
+//        long orderId = idGenerator.nextId("order_global");
+        long orderId = -1;
 
         // 2. 获取 IM ID (严格模式 - 有网络开销)
         long msgId = idGenerator.nextId("chat_group_1001");

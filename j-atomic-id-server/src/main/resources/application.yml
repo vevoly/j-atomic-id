@@ -17,6 +17,7 @@ logging:
     # 屏蔽 Chronicle 的 INFO 级别噪音（比如磁盘检查、映射文件扩容日志）
     net.openhft: WARN
 
+# metric 监控配置
 management:
   endpoints:
     web:
@@ -26,10 +27,11 @@ management:
     tags:
       application: j-atomic-id # 全局 Tag
 
-# j-atomic-ledger 配置
+# j-atomic-ledger 原子账本配置
 j-atomic-ledger:
   base-dir: ./data/j-atomic-id-server
   engine-name: id-core
+  metrics-prefix: atomic-id-server
   partitions: 4
   queue-size: 65536
   batch-size: 1000
@@ -37,3 +39,16 @@ j-atomic-ledger:
   enable-time-snapshot: true
   snapshot-time-interval: 10m
   idempotency: BLOOM
+
+# j-atomic-id 服务端配置
+j-atomic-id:
+  server:
+    auth:
+      enabled: true
+      clients:
+        # Key (AppKey)     Value (AppSecret)
+        order-service: "a_very_long_secret_for_order_service"
+        user-service:  "another_secret_for_user_service"
+      ip-white-list:   # ip 白名单
+        - 127.0.0.11
+        - 127.0.0.3

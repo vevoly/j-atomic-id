@@ -32,10 +32,16 @@ public class IdClientProperties {
     private String serverUrl;
 
     /**
-     * 应用 ID (App ID).
-     * <p>用于未来鉴权或统计 (Optional).</p>
+     * 应用 Key (App Key).
+     * <p>用于鉴权或统计 (Optional).</p>
      */
-    private String appId;
+    private String appKey;
+
+    /**
+     * 应用密钥 (App Secret).
+     * <p>用于鉴权或统计 (Optional).</p>
+     */
+    private String appSecret;
 
     /**
      * 业务规则列表 (Business Rules).
